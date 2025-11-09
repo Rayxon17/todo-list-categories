@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List with Categories</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .todo-container {
+      max-width: 500px;
+      margin: 20px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    input, select, button {
+      padding: 10px;
+      margin: 5px 0;
+      width: 100%;
+      box-sizing: border-box;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin-top: 15px;
+    }
+    li {
+      background: #e2e2e2;
+      margin: 5px 0;
+      padding: 10px;
+      border-radius: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    li button {
+      background: red;
+      padding: 5px 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>To-Do List with Categories</h1>
+  <div class="todo-container">
+    <input type="text" id="taskInput" placeholder="Add new task">
+    <select id="categoryInput">
+      <option value="Work">Work</option>
+      <option value="Study">Study</option>
+      <option value="Personal">Personal</option>
+    </select>
+    <button id="addTaskBtn">Add Task</button>
+    <ul id="taskList"></ul>
+  </div>
+
+  <script>
+    const taskInput = document.getElementById('taskInput');
+    const categoryInput = document.getElementById('categoryInput');
+    const addTaskBtn = document.getElementById('addTaskBtn');
+    const taskList = document.getElementById('taskList');
+
+    // Add new task
+    addTaskBtn.addEventListener('click', () => {
+      const task = taskInput.value.trim();
+      const category = categoryInput.value;
+      if (task === '') return;
+
+      // Create list item
+      const li = document.createElement('li');
+      li.innerHTML = `<span>[${category}] ${task}</span> <button>Delete</button>`;
+      taskList.appendChild(li);
+
+      // Delete task
+      li.querySelector('button').addEventListener('click', () => {
+        li.remove();
+      });
+
+      // Clear input
+      taskInput.value = '';
+      taskInput.focus();
+    });
+
+    // Allow Enter key to add task
+    taskInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') addTaskBtn.click();
+    });
+  </script>
+</body>
+</html>
